@@ -1,0 +1,35 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+  ldap:
+    embedded:
+      base-dn: 'dc=springframework,dc=org'
+      port: 8389
+      credential:
+        username: ''
+        password: ''
+      ldif: classpath:test-server.ldif
+
+logging:
+  level.org.springframework.security.*: DEBUG
+  level.org.springframework.*: DEBUG
+
+embeddedLdapEnabled: true
+
+liquibase-changelogs:
+  primary:
+    liquibase:
+      change-log: classpath:/db.changelog/db.changelog-master.xml
+      default-schema: admin_records
+      drop-first: true
+  legacy:
+    liquibase:
+      change-log: classpath:/db.changelog/db.changelog-legacy.xml
+      default-schema: dbo
+      drop-first: true

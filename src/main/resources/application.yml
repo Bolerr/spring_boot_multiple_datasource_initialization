@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: 'Liquibase_Example'
+    version: 1.0
+  aop:
+    auto: true
+    proxy-target-class: true
+  primary:
+    datasource:
+      url: jdbc:h2:mem:modern;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+    jpa:
+      properties:
+        hibernate:
+          default_schema: admin_records
+          hbm2ddl:
+            ddl-auto: none
+          naming:
+              physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  legacy:
+    datasource:
+      url: jdbc:h2:mem:legacy;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+    jpa:
+      properties:
+        hibernate:
+          default_schema: dbo
+          hbm2ddl:
+            ddl-auto: none
+          naming:
+              physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  jpa:
+    database: default
+    properties.jadira.usertype.autoRegisterUserTypes: true
+    properties.jadira.usertype.javaZone: jvm
+    properties.jadira.usertype.databaseZone: jvm
+    database-platform: org.hibernate.dialect.H2Dialect
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+      indent_output: true
+  profiles:
+    active: ${APP_ENV:Local}
+
+swagger:
+  api-info:
+    title: 'Example Application'
+    desc: 'Example Application Data Service'
+    creator: ''
+    url-desc: 'API Documentation'
+    url: ''
+
+logging:
+  level:
+    org.springframework: INFO
+    com.liquibase: DEBUG
